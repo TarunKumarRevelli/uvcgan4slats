@@ -95,7 +95,7 @@ args_dict = {
         ],
         'merge_type' : 'unpaired',
     },
-    'epochs'        : 20,
+    'epochs'        : 2,
     'discriminator' : None,
     'generator' : {
         **GEN_PRESETS[cmdargs.gen],
