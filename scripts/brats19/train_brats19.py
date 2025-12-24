@@ -200,7 +200,7 @@ args_dict = {
     ),
     'outdir' : os.path.join(ROOT_OUTDIR, 'brats19'),
     'log_level'  : 'DEBUG',
-    'checkpoint' : 50,
+    'checkpoint' : 1,  # Save checkpoint every epoch
 }
 
 train(args_dict)

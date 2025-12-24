@@ -136,7 +136,7 @@ args_dict = {
     'label'      : 'pretrain-brats19-256',
     'outdir'     : os.path.join(ROOT_OUTDIR, 'brats19'),
     'log_level'  : 'DEBUG',
-    'checkpoint' : 100,
+    'checkpoint' : 1,  # Save checkpoint every epoch
 }
 
 train(args_dict)
