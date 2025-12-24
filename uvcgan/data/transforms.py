@@ -11,6 +11,7 @@ TRANSFORM_DICT = {
     'random-flip-horizontal' : transforms.RandomHorizontalFlip,
     'random-rotation'        : transforms.RandomRotation,
     'resize'                 : transforms.Resize,
+    'grayscale'              : transforms.Grayscale,
     'CenterCrop'             : transforms.CenterCrop,
     'ColorJitter'            : transforms.ColorJitter,
     'RandomCrop'             : transforms.RandomCrop,
@@ -18,6 +19,7 @@ TRANSFORM_DICT = {
     'RandomHorizontalFlip'   : transforms.RandomHorizontalFlip,
     'RandomRotation'         : transforms.RandomRotation,
     'Resize'                 : transforms.Resize,
+    'Grayscale'              : transforms.Grayscale,
 }
 
 def select_single_transform(transform):

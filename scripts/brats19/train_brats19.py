@@ -105,15 +105,17 @@ TARGET_SIZE = 256  # Target image size for resizing (height, width)
 # Transforms for PNG images
 # Images will be automatically converted to tensors (values 0-1) by ToTensor()
 # Add 'resize' transform to ensure all images are the same size
-# Note: If your PNGs are RGB (3 channels), change IMAGE_SHAPE to (3, 256, 256)
-#       If your PNGs are grayscale (1 channel), keep IMAGE_SHAPE as (1, 256, 256)
+# If your PNGs are RGB (3 channels), add 'grayscale' transform to convert to 1 channel
+# If your PNGs are already grayscale (1 channel), you can remove 'grayscale' transform
 TRANSFORMS_TRAIN = [
     {'name': 'resize', 'size': TARGET_SIZE},  # Resize to target size
+    {'name': 'grayscale'},  # Convert RGB to grayscale (remove if images are already grayscale)
     # {'name': 'random-flip-horizontal'},  # Optional: data augmentation
 ]
 
 TRANSFORMS_TEST = [
     {'name': 'resize', 'size': TARGET_SIZE},  # Resize to target size
+    {'name': 'grayscale'},  # Convert RGB to grayscale (remove if images are already grayscale)
 ]
 # ============================================================================
 
