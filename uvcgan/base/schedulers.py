@@ -6,7 +6,8 @@
 from torch.optim           import lr_scheduler
 from uvcgan.torch.select import extract_name_kwargs
 
-def linear_scheduler(optimizer, epochs_warmup, epochs_anneal, verbose = True):
+def linear_scheduler(optimizer, epochs_warmup, epochs_anneal, verbose = False):
+    # Note: verbose parameter removed - LambdaLR doesn't support it in some PyTorch versions
 
     def lambda_rule(epoch, epochs_warmup, epochs_anneal):
         if epoch < epochs_warmup:
@@ -16,15 +17,15 @@ def linear_scheduler(optimizer, epochs_warmup, epochs_anneal, verbose = True):
 
     lr_fn = lambda epoch : lambda_rule(epoch, epochs_warmup, epochs_anneal)
 
-    return lr_scheduler.LambdaLR(optimizer, lr_fn, verbose = verbose)
+    # Don't pass verbose to LambdaLR - not supported in older PyTorch versions
+    return lr_scheduler.LambdaLR(optimizer, lr_fn)
 
 def get_scheduler(optimizer, scheduler):
     name, kwargs = extract_name_kwargs(scheduler)
     
-    # Add verbose only to schedulers that support it
-    # CosineAnnealingWarmRestarts doesn't support verbose in older PyTorch versions
-    if name != 'CosineAnnealingWarmRestarts':
-        kwargs['verbose'] = True
+    # Remove verbose from all schedulers - not all PyTorch versions support it
+    # LambdaLR, CosineAnnealingWarmRestarts, and others don't support verbose in older versions
+    kwargs.pop('verbose', None)
 
     if name == 'linear':
         return linear_scheduler(optimizer, **kwargs)
@@ -39,8 +40,6 @@ def get_scheduler(optimizer, scheduler):
         return lr_scheduler.CosineAnnealingLR(optimizer, **kwargs)
 
     if name == 'CosineAnnealingWarmRestarts':
-        # Remove verbose if present (not supported in some PyTorch versions)
-        kwargs.pop('verbose', None)
         return lr_scheduler.CosineAnnealingWarmRestarts(optimizer, **kwargs)
 
     raise ValueError("Unknown scheduler '%s'" % name)
