@@ -131,7 +131,7 @@ args_dict = {
     },
     'loss'             : 'l2',
     'gradient_penalty' : None,
-    'steps_per_epoch'  : 1000,#32 * 1024 // cmdargs.batch_size,
+    'steps_per_epoch'  : 50,#32 * 1024 // cmdargs.batch_size,
 # args
     'label'      : 'pretrain-brats19-256',
     'outdir'     : os.path.join(ROOT_OUTDIR, 'brats19'),
