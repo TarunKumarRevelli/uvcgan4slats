@@ -93,10 +93,21 @@ def main():
     
     # Step 2: Find the evaluation directory
     # translate_data.py saves to evals/{split}/ndarrays_eval-{split}/
-    eval_base = os.path.join(checkpoint_dir, 'evals', cmdargs.split)
+    # NEW CORRECT LOGIC:
+    # Determine the epoch folder name. If no epoch was passed, it defaults to 'final'
+    epoch_name = str(cmdargs.epoch) if cmdargs.epoch is not None else 'final'
+    
+    # The path is actually evals/{epoch_name}
+    eval_base = os.path.join(checkpoint_dir, 'evals', epoch_name)
     
     if not os.path.exists(eval_base):
+        # Fallback: sometimes it might be just 'evals' depending on the implementation
+        # usually it is evals/final or evals/50 etc.
         print(f"Error: Evaluation directory not found: {eval_base}")
+        # Debugging help: list what IS in evals
+        evals_root = os.path.join(checkpoint_dir, 'evals')
+        if os.path.exists(evals_root):
+            print(f"Available folders in evals/: {os.listdir(evals_root)}")
         return
     
     # Find the most recent eval directory
