@@ -172,15 +172,15 @@ args_dict = {
     },
     'scheduler' : {
         'name'          : 'linear',
-        'epochs_warmup' : 250,
-        'epochs_anneal' : 250,
+        'epochs_warmup' : 25,#250,
+        'epochs_anneal' : 25, #250,
     },
     'loss' : 'lsgan',
     'gradient_penalty' : {
         'constant'  : cmdargs.constant_gp,
         'lambda_gp' : cmdargs.lambda_gp / (cmdargs.constant_gp ** 2),
     },
-    'steps_per_epoch'  : 2000,
+    'steps_per_epoch'  : 50,#2000,
     'transfer' : None if cmdargs.no_pretrain else {
         'base_model'   : (
             'brats19/model_m(autoencoder)_d(None)_g(vit-unet)_pretrain-brats19-256'
