@@ -20,7 +20,11 @@ def linear_scheduler(optimizer, epochs_warmup, epochs_anneal, verbose = True):
 
 def get_scheduler(optimizer, scheduler):
     name, kwargs = extract_name_kwargs(scheduler)
-    kwargs['verbose'] = True
+    
+    # Add verbose only to schedulers that support it
+    # CosineAnnealingWarmRestarts doesn't support verbose in older PyTorch versions
+    if name != 'CosineAnnealingWarmRestarts':
+        kwargs['verbose'] = True
 
     if name == 'linear':
         return linear_scheduler(optimizer, **kwargs)
@@ -35,6 +39,8 @@ def get_scheduler(optimizer, scheduler):
         return lr_scheduler.CosineAnnealingLR(optimizer, **kwargs)
 
     if name == 'CosineAnnealingWarmRestarts':
+        # Remove verbose if present (not supported in some PyTorch versions)
+        kwargs.pop('verbose', None)
         return lr_scheduler.CosineAnnealingWarmRestarts(optimizer, **kwargs)
 
     raise ValueError("Unknown scheduler '%s'" % name)
