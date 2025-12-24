@@ -32,7 +32,7 @@ class Config(ConfigBase):
 
     def __init__(
         self,
-        batch_size       = 32,
+        batch_size       = 16,
         data             = None,
         data_args        = None,
         epochs           = 100,
