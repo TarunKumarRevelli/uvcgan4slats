@@ -74,7 +74,7 @@ def main():
     translate_cmd = [
         'python', 'scripts/translate_data.py',
         checkpoint_dir,
-        '--n-eval', str(cmdargs.n_samples),
+        '-n', str(cmdargs.n_samples),
         '--split', cmdargs.split,
     ]
     
