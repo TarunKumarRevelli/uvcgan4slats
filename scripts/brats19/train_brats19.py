@@ -137,7 +137,7 @@ args_dict = {
         ],
         'merge_type' : 'unpaired',
     },
-    'epochs'        : 500,
+    'epochs'        : 20,
     'discriminator' : {
         'model' : 'basic',
         'model_args' : None,
